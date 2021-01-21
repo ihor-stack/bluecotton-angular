@@ -1,0 +1,23 @@
+/deep/ .transparent-selected .current-color {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACN\
+    Ms+9AAAAGElEQVQYlWNgYGCQwoKxgqGgcJA5h3yFAAs8BRWVSwooAAAAAElFTkSuQmCC') !important;
+}
+
+.modal-body .row>.col, .modal-body .row>[class^=col-] {
+  padding: 0;
+  label {
+    font-size: 11px;
+  }
+}
+
+.label-color-wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  margin: 0;
+  justify-self: normal;
+  justify-content: space-between;
+  .label-color {
+    font-size: 11px;
+  }
+}

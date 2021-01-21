@@ -1,0 +1,29 @@
+.names-row label,
+.names-row app-ui-font-picker ,
+.numbers-row label,
+.numbers-row app-ui-font-picker {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+}
+.size-cell { width: 3em; }
+.number-cell { width: 3em; }
+@media (min-width: 891px) {
+  .names-row, .numbers-row {
+    margin-bottom: 15px;
+  }
+  .names-row label, .numbers-row label {
+    height: 0px;
+    line-height: 0px;
+  }
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.labels-center {
+  text-align: center;
+}

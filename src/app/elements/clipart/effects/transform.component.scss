@@ -1,0 +1,116 @@
+@import '~bootstrap/scss/functions',
+        '~bootstrap/scss/variables',
+        '~bootstrap/scss/mixins';
+
+.precision-col {
+  @include make-col-ready();
+  @include make-col(6);
+  @media (min-width: 891px) {
+    @include make-col(12);
+  }
+  @media (min-width: 1200px) {
+    @include make-col(6);
+  }
+  @media(max-width: 500px){
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+}
+:host {
+  width: 100%;
+}
+.constrain-wrapper{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 5px;
+  grid-row-gap: 15px;
+  align-items: center;
+  justify-items: center;
+  font-size: 11px;
+
+  .constrain-text-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    width: 100%;
+    .label-color {
+      font-size: 11px;
+    }
+    .label-constrain {
+      font-size: 11px;
+    }
+    .checkbox-label {
+      display: block;
+      position: relative;
+      margin-left: auto;
+      cursor: pointer;
+      font-size: 22px;
+      line-height: 24px;
+      height: 24px;
+      width: 24px;
+      clear: both;
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .checkbox-custom {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 24px;
+        width: 24px;
+        background-color: transparent;
+        border-radius: 5px;
+        transition: all 0.3s ease-out;
+        border: 1px solid grey;
+      }
+      input:checked ~ .checkbox-custom {
+        background-color: transparent;
+        border-radius: 5px;
+        opacity:1;
+        border: 1px solid grey;
+      }
+      .checkbox-custom::after {
+        position: absolute;
+        content: "";
+        left: 12px;
+        top: 12px;
+        height: 0px;
+        width: 0px;
+        border-radius: 5px;
+        border: 2px solid #009BFF;
+        border-width: 0 3px 3px 0;
+        transform: rotate(0deg) scale(0);
+        opacity:1;
+        transition: all 0.3s ease-out;
+      }
+      input:checked ~ .checkbox-custom::after {
+        transform: rotate(45deg) scale(1);
+        opacity:1;
+        left: 8px;
+        top: 3px;
+        width: 6px;
+        height: 12px;
+        border: solid #009BFF;
+        border-width: 0 3px 3px 0;
+        background-color: transparent;
+        border-radius: 0;
+      }
+    }
+  }
+
+  .precision-col{
+    max-width: 100%;
+    padding: 0;
+    label{
+      font-size: 11px;
+    }
+  }
+
+  .end{
+    align-self: flex-end;
+  }
+}

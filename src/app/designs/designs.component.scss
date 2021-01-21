@@ -1,0 +1,19 @@
+.designs-table {
+  width: 100%;
+}
+.designs-table tr { border-bottom: 1px solid #ddd;}
+.designs-table tr:last-child { border: none;}
+.designs-table td { padding: 5px 0;}
+#designs-wrapper{ height: 475px; }
+.design-compatiblity-warning{ font-size: 12px; color: red; margin-bottom: 5px; }
+ /deep/ .designs-preview{
+   width: 235px;
+   display: block;
+   float: left;
+   margin: 0px auto;
+   @media (max-width: 576px) {
+     width: 145px;
+   }
+   cursor: pointer;
+}
+.pagination-button{ margin-bottom: 25px; margin-top: 25px; }

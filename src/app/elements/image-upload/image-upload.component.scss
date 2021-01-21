@@ -1,0 +1,56 @@
+.card {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.selected-color-label {
+  padding-left: 1em;
+}
+
+.card-block{ padding: 5px; }
+
+::ng-deep .cursor-cross {
+  .selectable {
+    cursor: crosshair;
+  }
+}
+
+.line {
+  height: 1px;
+  background-color: grey;
+  margin: 22px 0;
+}
+
+.modal-body{
+  input {
+    padding: 0 10px;
+  }
+}
+
+.edit-transorm-wrapper{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.transparency-button{
+  width: auto;
+  padding: 0 10px;
+}
+
+.color-picker-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  .color-wrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    font-size: 10px;
+  }
+}
+
+.text-style{
+  font-size: 11px;
+}

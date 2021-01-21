@@ -1,0 +1,53 @@
+<div class="constrain-wrapper">
+    <ng-content select="[color]"></ng-content>
+    <div class="col-12 constrain-text-wrapper">
+        <label class="label-constrain">Constrain</label>
+        <label class="checkbox-label">
+          <input type="checkbox" type="checkbox" [(ngModel)]="constrain">
+          <span class="checkbox-custom"></span>
+        </label>
+    </div>
+    <div class="precision-col">
+      <label>Width</label>
+      <app-ui-precision-range
+        uom='&Prime;'
+        conversionType="pixelsPerInch"
+        [conversionFactor]="element.area.side.pixelsPerInch"
+        [min]="1"
+        [max]="element.area.svgElement.width()"
+        [step]="element.area.side.pixelsPerInch / 4"
+        [value]="element.width"
+        (onChange)="onEffectChanges('width', $event)"
+      ></app-ui-precision-range>
+    </div>
+    <div class="precision-col">
+      <label>Height</label>
+      <app-ui-precision-range
+        uom='&Prime;'
+        conversionType="pixelsPerInch"
+        [conversionFactor]="element.area.side.pixelsPerInch"
+        [min]="1"
+        [max]="element.area.svgElement.height()"
+        [step]="element.area.side.pixelsPerInch / 4"
+        [value]="element.height"
+        (onChange)="onEffectChanges('height', $event)"
+      ></app-ui-precision-range>
+    </div>
+    <div class="precision-col">
+      <div class="precision-col">
+        <label>Rotate</label>
+        <app-ui-precision-range
+          uom='&deg;'
+          [min]="-359"
+          [max]="359"
+          [step]="1"
+          [value]="element.rotationDegrees"
+          (onChange)="onEffectChanges('rotationDegrees', $event)"
+        ></app-ui-precision-range>
+      </div>
+    </div>
+    <button type="button" class="btn btn-secondary pull-left btn-image-upload end" (click)="element.resetRotation()">Reset Rotation</button>
+    <button type="button" class="btn btn-secondary pull-left btn-image-upload" (click)="element.center()">Center</button>
+    <button type="button" class="btn btn-secondary pull-left btn-image-upload" (click)="elementComponent.duplicate()">Duplicate</button>
+    <ng-content select="[flip]"></ng-content>
+</div>

@@ -1,0 +1,11 @@
+.size-badge { margin-right: 5px; }
+
+.sizes-table td { padding: 5px;}
+.sizes-table > tbody > tr > td:first-child { padding-left: 0;}
+.sizes-table > tbody > tr > td:last-child { padding-right: 0;}
+/deep/ .quality-modal {
+    @media (min-width: 891px) {
+        height: 500px;
+        overflow-y: scroll;
+    }
+}

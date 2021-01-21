@@ -1,0 +1,47 @@
+<button class="col btn btn-sm btn-secondary" (click)="openShare()" id="openShare">Share</button>
+
+<ng-template #sharePopup let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Share Design</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p *ngIf="!shouldShowShareLinks()">
+      Saving design for sharing...
+    </p>
+    <ng-template [ngIf]="shouldShowShareLinks()">
+      <div class="row">
+        <div class='col-md-12'>
+          <p>Your share link: </p>
+          <div class='row'>
+            <div class='col-md-7 col-xs-12'>
+              <input type='text' value='{{shareDesignLink()}}' readonly #shareLink class='form-control' />
+            </div>
+            <div class='col-md-5 col-xs-12'>
+              <button (click)="copyInputMessage(shareLink)" class='btn btn-secondary'>Copy</button>
+            </div>
+          </div>
+
+          <br />
+          <p>Or share via one of the services below:</p>
+        </div>
+      </div>
+      <div class="row">
+        <button class="col btn btn-link" (click)="onShareViaEmail()" id="onShareViaEmail">
+          <i class="fa fa-envelope" aria-hidden="true"></i>
+          Email
+        </button>
+        <button class="col btn btn-link" (click)="onShareViaFacebook()" id="onShareViaFacebook">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+          Facebook
+        </button>
+        <button class="col btn btn-link" (click)="onShareViaTwitter()" id="onShareViaTwitter">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+          Twitter
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>

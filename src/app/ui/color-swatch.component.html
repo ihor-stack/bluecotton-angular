@@ -1,0 +1,49 @@
+<ng-template [ngIf]="color && color.display">
+    <div
+      *ngIf="color.display.length <= 1 && (color.display.length == 0 || color.display[0].type === 'hex')"
+      class="color-swatch"
+      [class.active]="active"
+      [ngClass]="{'showHover': isShowHover}"
+      [style.background]="color.rgb"
+      ngbTooltip="{{color.name}}"
+      id="openColorsEditor"
+      >
+      <span *ngIf="color.display.length <= 39"></span>
+    </div>
+
+    <div
+      *ngIf="color.display.length <= 1 && color.display.length && color.display[0].type === 'image'"
+      class="color-swatch"
+      [class.active]="active"
+      [style.background-image]="getImageStyle(color.display[0].value)"
+      ngbTooltip="{{color.name}}"
+      [ngClass]="{'showHover': isShowHover}"
+      >
+      <span></span>
+    </div>
+
+    <div
+      *ngIf="color.display.length > 1"
+      class="color-swatch multi-color-swatch"
+      [class.active]="active"
+      ngbTooltip="{{color.name}}"
+      [ngClass]="{'showHover': isShowHover}"
+      >
+
+      <ng-container *ngFor="let display of color.display">
+        <div *ngIf="display.type === 'hex'"
+          [style.background-color]="display.value"
+          [style.width]="(100 / color.display.length) + '%'"
+          class="multi-color-swatch"
+          >
+        </div>
+        <div *ngIf="display.type === 'image'"
+          [style.background-image]="getImageStyle(display.value)"
+          [style.width]="(100 / color.display.length) + '%'"
+          class="multi-color-swatch"
+          >
+        </div>
+      </ng-container>
+      <span></span>
+    </div>
+  </ng-template>

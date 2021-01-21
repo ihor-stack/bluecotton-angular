@@ -1,0 +1,48 @@
+:host {
+    width: 100%;
+    margin-bottom: 1em;
+    .btn-open-font-picker {
+      font-size: 11px;
+      width: 100%;
+    }
+    .select-wrapper {
+      position: relative;	
+    }
+    
+    .select-wrapper:after {
+      font-family: FontAwesome;
+      content: "\f107";
+      font-size: 11px;
+      border: none;
+      position: absolute;
+      top: 0.75em;
+      right: 0.5em;
+      color: #c9d0d6;
+    }
+  }
+
+  .effect-controls {
+    margin-left: 0;
+    margin-right: 0;
+    margin: 0 15px;
+    .shape-wrapper {
+      margin: 15px 0;
+      .select-style {
+        color: #096BA1;
+        text-align: left;
+        width: 100%;
+        position: relative;
+        border-radius: 10px;
+        background-color: white;
+        border: 2px solid #ccc;
+      }
+    }
+
+  .grid-wrapper {
+      display: grid;
+      grid-column-gap: 30px;
+      grid-template-columns: 1fr 115px;
+      margin: 10px 15px;
+      align-items: center;
+    }
+  }

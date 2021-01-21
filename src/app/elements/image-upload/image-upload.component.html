@@ -1,0 +1,197 @@
+<div class="toolbar-item" (click)="openDialog(newImageUploadDialog)">
+  <div class="toolbar-item-icon">
+    <i class="las la-upload" [ngClass]="isMobile === 'true' ? '' : 'menu-icon'"></i>
+  </div>
+  <label class="toolbar-item-title">
+    {{isMobile === 'true' ? 'Upload' : 'Upload Image'}}
+  </label>
+</div>
+<ng-template #newImageUploadDialog let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Upload Image</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="upload-btn-wrapper">
+      <button
+        type="button"
+        class="btn btn-primary clipart-btn"
+        (click)="chooseFile($event)"
+      >Choose File</button>
+      <input type="file" id="uploadFile"
+        accept="image/*,.eps"
+        (change)="fileSelected($event)"
+      />
+    </div>
+    <div class="line"></div>
+    <div class="modal-descirption">
+      Click the "Choose File" button and select a GIF, JPG, BMP, or PNG file to upload.
+      For best results, we recommend 300dpi PNG files. 
+    </div>
+  </div>
+</ng-template>
+<ng-template #editImageUploadDialog let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Image - {{ headerText }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="currentElement && currentElement.printMethod === 'single'" class="row edit-transorm-wrapper">
+      <div class="color-picker-wrapper">
+        <app-transform [(element)]="currentElement">
+          <div class="color-wrapper" color>
+            <div class="text-style">Color</div>
+              <app-color-picker
+                *ngIf="currentElement.imageColors.length"
+                class="color-picker selected-color"
+                [selectedColor]="currentElement.imageColors[0]"
+                [availableColors]="availableColors"
+                [allowGarmentColor]="false"
+                (selectColor)="currentElement.imageColors=[$event]; onChanges('imageColors', currentElement.imageColors)"
+              >
+            </app-color-picker>
+          </div>
+        </app-transform>
+      </div>
+      <div class="col-4 text-right text-style">Threshold</div>
+      <div class="col-8">
+        <input type="range" min="0" max="765" step="5"
+          [value]="currentElement.threshold"
+          (change)="onChanges('threshold', $event.target.value)"
+          />
+      </div>
+    </div>
+    <div *ngIf="currentElement && currentElement.printMethod === 'multi'" class="row edit-transorm-wrapper">
+      <div class="color-picker-wrapper">
+        <div class="edit-transorm-wrapper">
+          <div class="color-wrapper">
+            <div class="text-style">Color</div>
+              <app-color-picker
+              class="color-picker selected-color"
+              [selectedColors]="currentElement.imageColors"
+              [availableColors]="availableColors"
+              [allowGarmentColor]="false"
+              [multiple]="true"
+              [isHover]="true"
+              [showButton]="false"
+              (selectColors)="onChanges('imageColors', $event)"
+              ></app-color-picker>
+          </div>
+          <app-transform [(element)]="currentElement">
+              <button *ngIf="!currentElement.transparentColor" transparent type="button" class="btn btn-secondary pull-left btn-image-upload transparency-button" (click)="makeTransparent()">
+                Add Transparency
+              </button>
+              <button *ngIf="currentElement.transparentColor" transparent type="button" class="btn btn-secondary pull-left btn-image-upload transparency-button" (click)="removeTransparent()">
+                Remove Transparency
+              </button>
+            <div emptyCell></div>
+          </app-transform>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentElement && currentElement.printMethod === 'blackAndWhite'" class="row edit-transorm-wrapper">
+      <div class="color-picker-wrapper">
+        <app-transform [(element)]="currentElement">
+          <div emptyCell></div>
+        </app-transform>
+      </div>
+    </div>
+    <div *ngIf="currentElement && currentElement.printMethod === 'color'" class="row edit-transorm-wrapper">
+      <div class="color-picker-wrapper">
+        <app-transform [(element)]="currentElement">
+          <div emptyCell></div>
+        </app-transform>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="currentElement" type="button" class="btn btn-danger btn-sm" (click)="remove()">
+      <i class="fa fa-trash"></i>
+      Remove
+    </button>
+  </div>
+</ng-template>
+<ng-template #imagePrintMethodDialog let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Image Successfully Uploaded!</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="pull-right">
+          <button
+          *ngIf="selectedColors.length"
+          type="button"
+          class="btn btn-primary"
+          (click)="chooseColors=false; addImage('multi')"
+          >Add Image</button>
+        </div>
+        <p>Multi-Color Drawing or Logo</p>
+        <br />
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="chooseColors" class="col-sm-4">
+        <h4>Select Inks</h4>
+        <p>
+          Please select the colors that best match those in your image. This will NOT affect the appearance
+          of your image, but will help us more effectively process your order.
+        </p>
+        <app-color-picker
+          [selectedColors]="selectedColors"
+          [availableColors]="availableColors"
+          [multiple]="true"
+          [minimumColors]="1"
+          [allowGarmentColor]="false"
+          (selectColors)="selectedColors=$event"
+          ></app-color-picker>
+      </div>
+      <div *ngIf="!chooseColors" class="col-sm-4">
+        <div class="card" (click)="addImage('single')">
+          <div class="card-block">
+            <h4 class="card-title">Single Color</h4>
+            <p class="card-text">
+              Printed with only one ink color. Very economical and can produce bright, bold results.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-block" (click)="chooseColors=true">
+            <h4 class="card-title">Multi-Color Drawing or Logo</h4>
+            <p class="card-text">
+              Printed with multiple ink colors. More expensive than a single color,
+              but the results can be tremendous!
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-block" (click)="addImage('blackAndWhite')">
+            <h4 class="card-title">Black & White Photo</h4>
+            <p class="card-text">
+              Much more economical than color photos. Prints best on light-colored garments.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-block" (click)="addImage('color')">
+            <h4 class="card-title">Color Photo</h4>
+            <p class="card-text">
+              Less economical than other printing methods and results are not as brilliant.
+              Works best on light-colored garments.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <img [src]="sanitizer.bypassSecurityTrustResourceUrl(uploadedImage.dataUrl)" class="img-fluid" />
+      </div>
+    </div>
+  </div>
+</ng-template>

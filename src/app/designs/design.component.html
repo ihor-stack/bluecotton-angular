@@ -1,0 +1,145 @@
+<div *ngIf="currentDesign" class="quick-bar-icon" (click)="showQuickBar()" id="showQuickBar">
+  <div [inlineSVG]="'assets/icons/shirt.svg'" id='my-design-icon' class="toolbar-item-icon"></div>
+  <label class="toolbar-item-title">
+    My Design
+  </label>
+</div>
+
+<div *ngIf="currentDesign" (click)="showQuickMobileBar()" id="showQuickMobileBar">
+</div>
+
+
+<div *ngIf="currentDesign" class='quick-bar' #quickBarContent>
+  <div class="modal-content quick-bar-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Order Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="hideQuickBar()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-pricing class="text-center"></app-pricing>
+  
+      <div *ngIf="currentDesign.product" class='product-name row'>
+        <div class="col-3 text-right">Item</div>
+        <div class="col-9"><a href='#' (click)="openProducts($event)" id="openProduct">{{currentDesign.product.name}}</a></div>
+      </div>
+      <div *ngIf="currentDesign.product" class='product-color row'>
+        <div class="col-3 text-right">Color</div>
+        <div class="col-9">
+          <div *ngIf="color">
+            <app-color-picker
+              class="color-picker selected-color"
+              [selectedColor]="color"
+              [availableColors]="availableColors"
+              [allowGarmentColor]="false"
+              (selectColor)="onSelectColor($event)"
+            ></app-color-picker>
+            <small class="selected-color-label">{{color.name}}</small>
+          </div>
+        </div>
+      </div>
+      <div class="quantities row">
+        <div class="col-3 text-right">Qtys</div>
+        <div class="col-9">
+          <div *ngIf="!currentDesign.selectedSizes.length">
+            <a href='#' (click)="openQuantities($event)" id="openQuantities">Add</a>
+          </div>
+          <div *ngIf="currentDesign.selectedSizes.length">
+            <span *ngFor="let size of currentDesign.selectedSizes" class="badge badge-primary size-badge">
+              {{size.size}}-{{size.quantity}}
+            </span>
+            <a href='#' (click)="openQuantities($event)" id="openQuantities">Edit</a>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="currentDesign.hasSleeves && currentDesign.totalQuantity < 6">
+        <div class="col-3"></div>
+        <div class="col-9">
+          <p class="small">
+            Sleeve print available with 6+
+          </p>
+        </div>
+      </div>
+  
+      <div class="row" id='quick-menu-controls'>
+        <div class="mb-10">
+          <app-design-add-to-cart [currentDesign]="currentDesign" class="ie-edge-w"></app-design-add-to-cart>
+        </div>
+        <div class="btn-row mb-10">
+          <app-design-save *ngIf="!globalService.preview" [currentDesign]="currentDesign" class="ie-edge-w justify-btn-left"></app-design-save>
+          <app-design-share *ngIf="!globalService.preview" [currentDesign]="currentDesign" class="ie-edge-w justify-btn-right" [sharedDesignId]="sharedDesignId"></app-design-share>
+        </div>
+        <div class="mb-10">
+          <app-design-export [currentDesign]="currentDesign" class="ie-edge-w" *ngIf="exportMode"></app-design-export>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="dialog-bar">
+    <div id="dialog-block-1"></div>
+    <div id="dialog-block-2"></div>
+  </div>
+</div>
+
+
+<ng-template #quickBarMobileContent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Order Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-pricing></app-pricing>
+
+    <div *ngIf="currentDesign.product" class='product-name row'>
+      <div class="col-2 text-right">Item</div>
+      <div class="col-10"><a href='#' (click)="openProducts($event)" id="openProduct">{{currentDesign.product.name}}</a></div>
+    </div>
+    <div *ngIf="currentDesign.product" class='product-color row'>
+      <div class="col-2 text-right">Color</div>
+      <div class="col-10">
+        <div *ngIf="color">
+          <app-color-picker
+            class="color-picker selected-color"
+            [selectedColor]="color"
+            [availableColors]="availableColors"
+            [allowGarmentColor]="false"
+            (selectColor)="onSelectColor($event)"
+          ></app-color-picker>
+          <small class="selected-color-label">{{color.name}}</small>
+        </div>
+      </div>
+    </div>
+    <div class="quantities row">
+      <div class="col-2 text-right">Qtys</div>
+      <div class="col-10">
+        <div *ngIf="!currentDesign.selectedSizes.length">
+          <a href='#' (click)="openQuantities($event)" id="openQuantities">Add</a>
+        </div>
+        <div *ngIf="currentDesign.selectedSizes.length">
+          <span *ngFor="let size of currentDesign.selectedSizes" class="badge badge-primary size-badge">
+            {{size.size}}-{{size.quantity}}
+          </span>
+          <a href='#' (click)="openQuantities($event)" id="openQuantities">Edit</a>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="currentDesign.hasSleeves && currentDesign.totalQuantity < 6">
+      <div class="col-2"></div>
+      <div class="col-10">
+        <p class="small">
+          Sleeve print available with 6+
+        </p>
+      </div>
+    </div>
+
+    <div class="row" id='quick-menu-controls'>
+      <app-design-add-to-cart [currentDesign]="currentDesign" class="col ie-edge-w"></app-design-add-to-cart>
+    </div>
+  </div>
+</ng-template>
+
+<app-products (select)="onSelectProduct($event)" (cancel)="onCancelBrowsingProducts()"></app-products>
+<app-sizes></app-sizes>

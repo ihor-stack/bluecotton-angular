@@ -1,0 +1,40 @@
+<div>
+    <div class="effect-toggle-wrapper col-sm-12">
+      <label class="label-effect sized">Drop Shadow</label>
+      <label class="checkbox-label">
+        <input type="checkbox" [ngModel]="effect.enabled" (ngModelChange)="onEffectChanges('enabled', $event)" class="pull-right">
+        <span class="checkbox-custom"></span>
+      </label>
+    </div>
+    <ng-template [ngIf]="effect.enabled">
+      <div class="effect-controls">
+        <div>
+          <div class="grid-wrapper">
+            <label class="sized">Horizontal</label>
+            <input type="range"
+              [ngModel]="effect.xOffset"
+              (ngModelChange)="onEffectChanges('xOffset', $event)"
+              min="-100" max="100" step="1"
+              />
+          </div>
+          <div class="grid-wrapper">
+            <label class="sized">Vertical</label>
+            <input type="range"
+              [ngModel]="effect.yOffset"
+              (ngModelChange)="onEffectChanges('yOffset', $event)"
+              min="-100" max="100" step="1"
+              />
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <label class="sized">Color</label>
+          <app-color-picker
+            class="form-control-static"
+            [selectedColor]="effect.color"
+            [availableColors]="availableColors"
+            (selectColor)="onSelectColor($event)"
+          ></app-color-picker>
+        </div>
+      </div>
+    </ng-template>
+  </div>

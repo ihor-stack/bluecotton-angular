@@ -1,0 +1,397 @@
+$quick-bar-breakpoint: 890px;
+
+html, body { 
+  height: 100%; 
+  overflow: auto;
+}
+
+.header {
+  width: 100%;
+  z-index: 1100;
+  position: relative;
+}
+
+  app-zoom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    @media (max-width: 890px) {
+      visibility: hidden;
+    }
+  }
+
+  .subcontainer {
+    display: inline-block; 
+    position: relative; 
+    -webkit-user-select: none;
+    @media (max-width: 890px) {
+      position: static; 
+    }
+  }
+
+.svg-wrapper {
+  position: relative;
+  overflow: hidden; /* important so that when we zoom in on svg, doesn't increase page width */
+  @media (max-width: 890px) {
+    padding: 0px;
+  }
+}
+
+  #canvas {
+    overflow: visible;
+    @media (max-width: 600px) {
+      left: 30px;
+    }
+    @media (min-width: 601px) {
+      left: -15px;
+    }
+    @media (min-width: 891px) {
+      left: 0px;
+    }
+  }
+/deep/ .not-visible {
+  visibility: hidden;
+}
+
+/deep/ .zIndexTop {
+  z-index: 9999;
+}
+#dialog-bar {
+  position: absolute;
+  right: 15px;
+  top: 330px;
+  display: block;
+  width: 300px;
+  @media (max-width: $quick-bar-breakpoint) {
+    top: -72px;
+  }
+  @media (max-width: 890px) {
+    width: 100%;
+  }
+}
+
+/deep/ .btn-group .btn {
+  font-size: 13px;
+  padding: .5rem .5rem .4rem;
+}
+
+/deep/ .modal {
+  top: 44px;
+  z-index: 2000; /* make sure dialogs are above any other elements */
+  @media (max-width: 890px) {
+    top: 0px;
+  }
+}
+
+/deep/ .modal-content {
+    @media (max-width: 890px) {
+      min-height: 100vh;
+      min-height: calc(var(--vh, 1vh) * 100);
+    }
+}
+
+/deep/ .modal-sm {
+  @media (min-width: 576px)
+  {
+      max-width: 300px !important;
+  }
+}
+
+/deep/ .modal-dialog {
+  margin: 0px;
+  @media (max-width: 890px) {
+    animation: animatetop 0.8s;
+  }
+
+  @media (min-width: 576px) {
+    border: 2px solid #1faae7;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 1.75rem auto 0 auto;
+  }
+}
+
+/deep/ .block-1 {
+  top: 0 !important;
+  max-width: 300px;
+}
+
+/deep/ .block-2 {
+  top: 0 !important;
+}
+
+@keyframes animatetop {
+  from {
+    bottom: -700px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+// /deep/ .modal-content-active {
+//   animation: animatebottom 0.8s;
+// }
+
+// @keyframes animatebottom {
+//   from {
+//     bottom: 0;
+//     opacity: 1;
+//   }
+
+//   to {
+//     bottom: -700px;
+//     opacity: 0;
+//   }
+// }
+
+  /deep/ .modal.block-1 { position: relative; }
+  /deep/ .modal.block-2 { position: relative; }
+  /deep/ .modal-open { overflow: auto !important; }
+  @media (max-width: 890px) {
+    /deep/ .modal-open .modal {
+      margin-bottom: 0px; /* make sure the bottom of the dialog can be seen above the toolbar */
+    }
+  }
+  /deep/ .modal.permanent .close { display: none !important;}
+  @media (max-width: 890px) {
+    /deep/ .modal.permanent { display: none !important; }
+    /deep/ .modal.permanent.show-anyway { display: block !important; }
+    /deep/ .modal.permanent.show .close { display: block !important;}
+  }
+
+/deep/ .dialog-shape-picker .modal-dialog {
+  max-width: 400px;
+  @media (max-width: 890px) {
+    max-width: 100%;
+  }
+}
+
+.legacy-link {
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  cursor: pointer;
+  z-index: 1290;
+  &:hover {
+    color: #fff;
+    background-color: #727b84;
+    border-color: #6c757d;
+  }
+}
+
+.toolbar {
+  position: absolute;
+  left: 15px;
+  top: 50px;
+  display: block;
+  color: #636363;
+  padding: 16px;
+  border-radius: 10px;
+  border: 2px solid #1faae7;
+  max-width: 90px;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 100;
+  background: white;
+  @media (max-width: 890px) {
+    position: fixed;
+    display: flex;
+    padding: 0.2em 0.5em 1em;
+    top: unset;
+    right: 0;
+    bottom: 0;
+    z-index: 1030;
+    max-width: 100%;
+  }
+}
+
+.desktop-toolbar {
+  @media (max-width: 890px) {
+    display: none;
+  }
+}
+
+.mobile-switch-bar {
+  position: fixed;
+  left: 0;
+  display: flex;
+  top: 330px;
+  z-index: 1;
+  max-width: 100%;
+  height: 55px;
+  justify-content: space-between;
+  @media (min-width: 891px) {
+    display: none;
+  }
+}
+
+.mobile-switch-bar-right {
+  position: fixed;
+  display: flex;
+  top: 330px;
+  right: 0;
+  z-index: 1;
+  max-width: 100%;
+  height: 55px;
+  justify-content: space-between;
+  @media (min-width: 891px) {
+    display: none;
+  }
+}
+
+.mobile-toolbar {
+  position: fixed;
+  left: 0;
+  display: flex;
+  top: unset;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  justify-content: space-around;
+  border-top: 1px solid #d6d6d6;
+  background: white;
+  @media (min-width: 891px) {
+    display: none;
+  }
+}
+
+.mobile-secondary-toolbar {
+  position: fixed;
+  left: 0;
+  display: flex;
+  top: unset;
+  right: 0;
+  bottom: 73px;
+  z-index: 1030;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  justify-content: space-around;
+  border-top: 1px solid #d6d6d6;
+  background: white;
+  @media (min-width: 891px) {
+    display: none;
+  }
+}
+.enable-toolbar {
+  display: none;
+}
+.mobile-toolbar-title {
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  display: block;;
+  color: #636363;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.mobile-toolbar-icon {
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 12px 0 12px;
+}
+
+.mobile-toolbar-icon__active {
+  border-bottom: 5px solid #56bfed;
+}
+
+  /deep/ .switchbar-item-icon {
+    font-size: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #d6d6d6;
+    margin: auto;
+  }
+
+  /deep/ .la-shopping-cart {    
+    color: #1faae7;
+  }
+  /deep/ .toolbar-item {
+    flex-grow: 1;
+    cursor: pointer;
+    margin-left: auto; margin-right: auto;
+    z-index: 100;
+    padding: 10px 0 0;
+    @media (max-width: 890px) {
+      padding: 0;
+    }
+  }
+
+    /deep/ .toolbar-item-title {
+      padding-top: 10px;
+      font-size: 9px !important;
+      text-align: center;
+      cursor: pointer;
+      display: block;;
+      color: #636363;
+      @media (max-width: 890px) {
+        font-size: 12px;
+        text-align: center;
+        cursor: pointer;
+        display: block;;
+        color: #636363;
+        font-weight: 600;
+        margin-bottom: 3px;
+      }
+    }
+
+    /deep/ .toolbar-item-icon, /deep/ .toolbar-item-icon svg {
+      display: block;
+      width: 32px;
+      height: 32px;
+      font-size: 2em; /* for font-based icons */
+      color: #096ba1;
+      margin-left: 11px;
+      @media (max-width: 890px) {
+        font-size: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 6px 12px 0 12px;
+        color: #555;
+        margin: auto;
+      }
+
+    }
+    /deep/ .toolbar .toolbar-item-icon path {
+      fill: #096ba1;
+    }
+    /deep/ #my-design-icon {
+      height: 62px;
+      width: 62px;
+      top: -25px;
+      position: relative;
+    }
+    /deep/ #my-design-icon svg {
+      height: 62px;
+      width: 62px;
+    }
+
+    /deep/ .menu-icon {
+      color: #5a6268;
+      font-size: 34px;
+    }
+
+    /deep/ .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+      }
+    }

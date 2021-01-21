@@ -1,0 +1,58 @@
+
+<div class="toolbar-item" (click)="openShapePicker()">
+  <div class="toolbar-item-icon">
+    <i class="las la-shapes" [ngClass]="isMobile === 'true' ? '' : 'menu-icon'"></i>
+  </div>
+  <label class="toolbar-item-title">
+    {{isMobile === 'true' ? 'Shape' : 'Add Shape'}}
+  </label>
+</div>
+<app-shape-picker (selectedType)="new($event)"></app-shape-picker>
+<ng-template #shapeEditor let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Shape</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="currentElement">
+      <app-transform [(element)]="currentElement">
+          <div class="center-color" color>
+            <label>Color</label>
+              <div class="col-sm-5">
+                <app-color-picker
+                  class="form-control-static"
+                  [selectedColor]="currentElement.fill"
+                  [availableColors]="availableColors"
+                  (selectColor)="onChanges('fill', $event)"
+                ></app-color-picker>
+              </div>
+            </div>
+            <div class="flip-wrapper" flip>
+                <label class="center-items">Flip</label>
+                <div class="center-items select-wrapper">
+                  <select 
+                    [ngModel]="currentElement.flipAxis" 
+                    (ngModelChange)="onChanges('flipAxis', $event)" 
+                    class="form-control btn btn-secondary btn-open-font-picker select-btn">
+                    <option value=''>None</option>
+                    <option value='x'>Horizontal</option>
+                    <option value='y'>Vertical</option>
+                  </select>
+                </div>
+              </div>
+      </app-transform>
+    </div>
+    <hr>
+    <div>
+      <app-outline [(element)]="currentElement"></app-outline>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-sm" (click)="remove()">
+      <i class="fa fa-trash"></i>
+      Remove
+    </button>
+  </div>
+</ng-template>

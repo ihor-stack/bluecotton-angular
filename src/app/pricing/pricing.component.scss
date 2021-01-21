@@ -1,0 +1,38 @@
+.price {
+  font-size: 26px;
+  line-height: 26px;
+  vertical-align: top;
+  margin: 0 0 5px;
+}
+/deep/ .price-text {
+  display: flex;
+  align-items: center;
+}
+/deep/ .info-btn  {
+  padding-top: 10px;
+}
+/deep/ .small {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.line-item-table { margin:0; font-weight: normal;}
+.line-item-table td { padding: 5px;}
+.line-item-table td:last-child {
+  text-align: right;
+  font-weight: bold;
+}
+.info-icon {
+  font-size: 28px;
+  color: #1faae7;
+  border-radius: 50%;
+}
+/deep/ .dialog-pricing {
+  @media (min-width: 576px) {
+    .modal-dialog {
+      border: 2px solid #1faae7;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 1.75rem auto 0 auto;
+    }
+  }
+}

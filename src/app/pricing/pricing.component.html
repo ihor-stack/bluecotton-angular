@@ -1,0 +1,36 @@
+<p class='price'>
+  <ng-template [ngIf]="!zeroPrice()">
+    <div class="price-text">
+      <p style="margin: 0px">{{price}}</p>
+      <button (click)="open()" class="info-btn btn btn-link small">
+        <i class="las la-info-circle info-icon"></i>
+      </button>
+    </div>
+    
+    
+  </ng-template>
+  <ng-template [ngIf]="zeroPrice()">
+    <button (click)="addQuantities()" class="btn btn-link small ">Add Quantities to see pricing.</button>
+  </ng-template>
+</p>
+<ng-template #content let-c="close" let-d="dismiss" class="pricing-modal">
+  <div class="modal-header">
+    <h4 class="modal-title">Pricing</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped line-item-table">
+      <tbody>
+        <ng-template ngFor let-lineItem [ngForOf]="pricingLineItems">
+          <tr>
+            <td>{{lineItem.label}}:</td>
+            <td>{{lineItem.value}}</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+<app-sizes></app-sizes>

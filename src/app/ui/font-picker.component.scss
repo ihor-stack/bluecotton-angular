@@ -1,0 +1,23 @@
+.btn-open-font-picker {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 11px;
+    text-align: left;
+    width: 100%;
+    position: relative;
+    color: #555;
+    border-radius: 4px;
+    &:hover {
+        color: #fff;
+    }
+  }
+
+  .fonts-container {
+    max-height: 400px;
+    overflow-y: scroll;
+    position: relative; /* so we can determine if children are visible */
+  }
+
+  .sample {
+    font-size: 32px;
+  }

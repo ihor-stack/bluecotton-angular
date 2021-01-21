@@ -1,0 +1,29 @@
+<div class="outline-wrapper">
+    <label class="center-color outline-label-wrapper">
+      Outline
+      <label class="checkbox-label">
+        <input type="checkbox" type="checkbox" [ngModel]="effect.enabled"
+        (ngModelChange)="onEffectChanges('enabled', $event)">
+        <span class="checkbox-custom"></span>
+      </label>
+    </label>
+  <ng-template [ngIf]="effect.enabled">
+      <div class="thickness-wrapper">
+        <label>Thickness</label>
+        <input type="range" min="15" max="100" step="5"
+          [ngModel]="effect.thickness"
+          (ngModelChange)="onEffectChanges('thickness', $event)"
+          />
+      </div>
+    <div class="thickness-wrapper">
+      <label>Color</label>
+      <app-color-picker
+        class="form-control-static"
+        [selectedColor]="effect.color"
+        [availableColors]="availableColors"
+        (selectColor)="onSelectColor($event)"
+        >
+      </app-color-picker>
+    </div>
+  </ng-template>
+</div>

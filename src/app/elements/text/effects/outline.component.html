@@ -1,0 +1,33 @@
+<div>
+  <div class="effect-toggle-wrapper col-sm-12">
+    <label class="label-effect sized">{{outlineLabel}}</label>
+    <label class="checkbox-label">
+      <input type="checkbox" [ngModel]="effect.enabled" (ngModelChange)="onEffectChanges('enabled', $event)" class="pull-right">
+      <span class="checkbox-custom"></span>
+    </label>
+  </div>
+  <ng-template [ngIf]="effect.enabled">
+    <div class="effect-controls">
+      <div>
+        <div class="thickness-wrapper">
+            <label class="sized">Thickness</label>
+            <input type="range"
+                  [ngModel]="effect.thickness"
+                  (ngModelChange)="onEffectChanges('thickness', $event)"
+                  min="15" max="100" step="5"/>
+        </div>
+      </div>
+      <div>
+        <div class="thickness-wrapper">
+            <label class="sized">Color</label>
+            <app-color-picker
+              class="form-control-static"
+              [selectedColor]="effect.color"
+              [availableColors]="availableColors"
+              (selectColor)="onSelectColor($event)"
+              ></app-color-picker>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,64 @@
+.color-swatch {
+    border-radius: 50%;
+    border: 3px solid #e3e7eb;
+    cursor: pointer;
+    height: 28px;
+    overflow: hidden;
+    position: relative;
+    width: 28px;
+    float: left;
+    margin: 2px;
+  }
+  .color-swatch.active,
+  .color-swatch:hover {
+    border: 3px solid #777;
+    span::after{
+        transform: rotate(45deg) scale(1);
+        opacity:1;
+        left: 8px;
+        top: 3px;
+        width: 6px;
+        height: 12px;
+        border: solid #777;
+        border-width: 0 3px 3px 0;
+        background-color: transparent;
+        border-radius: 0;
+    }
+  }
+  .multi-color-swatch {
+    height: 28px;
+    float: left;
+  }
+
+.showHover {
+  span::after {
+    position: absolute;
+    content: "";
+    left: 12px;
+    top: 12px;
+    height: 0px;
+    width: 0px;
+    border-radius: 5px;
+    border: 2px solid #777;
+    border-width: 0 3px 3px 0;
+    transform: rotate(0deg) scale(0);
+    opacity:1;
+    transition: all 0.3s ease-out;
+  }
+}
+
+.showHover.active,
+  .showHover:hover {
+    span::after{
+        transform: rotate(45deg) scale(1);
+        opacity:1;
+        left: 8px;
+        top: 3px;
+        width: 6px;
+        height: 12px;
+        border: solid #777;
+        border-width: 0 3px 3px 0;
+        background-color: transparent;
+        border-radius: 0;
+    }
+  }

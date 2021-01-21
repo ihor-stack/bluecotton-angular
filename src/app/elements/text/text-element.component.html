@@ -1,0 +1,77 @@
+<div class="toolbar-item" (click)="new()">
+  <div class="toolbar-item-icon">
+    <i class="las la-font" [ngClass]="isMobile === 'true' ? '' : 'menu-icon'"></i>
+  </div>
+  <label class="toolbar-item-title">
+    {{isMobile === 'true' ? 'Text' : 'Add Text'}}
+  </label>
+</div>
+<ng-template #textEditor let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Text</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="showBasic()">
+      <div class="row">
+        <div class="form-group col-sm-12">
+          <textarea [ngModel]="currentElement.text" (ngModelChange)="onChanges('text', $event)" class="form-control" >
+          </textarea>
+        </div>
+      </div>
+      <app-transform [(element)]="currentElement">
+          <div class="font-container" font>
+              <label class="sized">Font</label><br>
+              <app-ui-font-picker
+                *ngIf="currentElement.font"
+                [text]="currentElement.text"
+                [font]="currentElement.font"
+                (fontChange)="onChanges('font', $event)"
+                >
+              </app-ui-font-picker>
+            </div>
+            <div class="color-container" color>
+              <label class="sized">Color</label><br>
+              <app-color-picker
+                class="text-color-picker selected-color"
+                [selectedColor]="currentElement.fill"
+                [availableColors]="availableColors"
+                (selectColor)="onChanges('fill', $event)"
+              ></app-color-picker>
+            </div>
+            <button textEffect type="button" class='btn btn-secondary pull-left btn-image-upload' (click)="toggleShowEffects($event);">Text Effects</button>
+      </app-transform>
+    <div class="text-effect-toggle-wrapper">
+    </div>
+    </div>
+    <div *ngIf="_showEffects">
+      <div class="right-btn">
+        <button type="button" (click)="toggleShowEffects($event);" class='btn btn-secondary btn-image-upload'>Back</button>
+      </div>
+      <hr>
+      <div class="row">
+        <app-text-shape [(element)]="currentElement"></app-text-shape>
+      </div>
+      <hr>
+      <div class="row">
+        <app-outline [(element)]="currentElement"></app-outline>
+      </div>
+      <hr>
+      <div class="row">
+        <app-outline-two [(element)]="currentElement"></app-outline-two>
+      </div>
+      <hr>
+      <div class="row">
+        <app-drop-shadow [(element)]="currentElement"></app-drop-shadow>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-sm" (click)="remove()">
+      <i class="fa fa-trash"></i>
+      Remove
+    </button>
+  </div>
+</ng-template>

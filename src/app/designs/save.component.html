@@ -1,0 +1,34 @@
+<button class="col btn btn-sm btn-secondary" (click)="openSave()" id="openSave">Save</button>
+
+<ng-template #savePopup let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Save Design</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="!isLoggedIn()" class="modal-body" style="text-align:center">
+    <app-account (accountEvent)="accountEventsHandler($event)"></app-account>
+  </div>
+  <div *ngIf="isLoggedIn()" class="modal-body">
+    <div class="form-group">
+      <label class="control-label">Name</label>
+      <input class='form-control' type="text" [(ngModel)]="currentDesign.name" (ngModelChange)="onChanges('name', $event)" />
+    </div>
+    <div class="subscription-wrapper">
+      <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="promotionalEmails">
+        <span class="checkbox-custom"></span>
+      </label>
+      <label class="subscription">
+        Send me coupons, sale info and design tips!
+      </label>
+    </div>
+    <div>
+      <button id="overwrite" *ngIf="hasServerSave()" type="button" [disabled]="clicked" (click)="onSave(true); clicked=true;" class="pull-right btn btn-sm btn-secondary" id="saveExistingOne">
+        Overwrite Existing
+      </button>
+      <button type="button" [disabled]="clicked" (click)="onSave(false); clicked=true;" class="pull-right btn btn-sm btn-secondary" id="saveAsNew">Save as new</button>
+    </div>
+  </div>
+</ng-template>

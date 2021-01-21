@@ -1,0 +1,26 @@
+:host {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .effect-controls {
+    margin: 0 15px;
+  }
+
+  .color-picker {
+    margin: 0 15px;
+    display: grid;
+    grid-template-columns: 1fr 61%;
+    justify-content: space-between;
+  }
+
+  .grid-wrapper {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-template-columns: 60px 115px;
+    margin: 10px 15px;
+    align-items: center;
+    app-color-picker {
+      margin-left: -5px;
+    }
+  }

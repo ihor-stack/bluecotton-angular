@@ -1,0 +1,170 @@
+<app-ui-alerts></app-ui-alerts>
+<div class="header">
+  <app-zoom></app-zoom>
+  <app-design
+    [designId]="designId"
+    [cartItemId]="cartItemId"
+    [exportMode]="exportMode"
+    [spoofSession]="spoofSession"
+    [orderId]="orderId"
+    [itemId]="itemId"
+    [sharedDesignId]="sharedDesignId"
+    [productId]="productId"
+    [colorId]="colorId"
+    ></app-design>
+</div>
+
+<div class="svg-wrapper container" id="container">
+  <div id="subcontainer" class="subcontainer">
+    <canvas height="80" width="60" style="display: block; height: 100%; visibility: hidden;"></canvas>
+    <svg id="canvas" style="top: 0px; position: absolute;"></svg>
+  </div>
+  <!-- <svg id="canvas"></svg> -->
+</div>
+
+<div id="dialog-bar">
+  <div id="dialog-block-3"></div>
+  <div id="dialog-block-4"></div>
+</div>
+
+<a *ngIf="!previewMode()" class='legacy-link btn btn-sm btn-secondary d-none d-lg-block' href='https://retired.bluecotton.com/studio.html'>Go to retired Design Studio</a>
+
+<div class="toolbar desktop-toolbar" *ngIf="currentDesign">
+  <app-text-element *ngIf="!previewMode()" class="toolbar-item"></app-text-element>
+  <app-clipart *ngIf="!previewMode()" class="toolbar-item"></app-clipart>
+  <app-shape-element *ngIf="!previewMode()" class="toolbar-item"></app-shape-element>
+  <app-image-upload *ngIf="!previewMode()" class="toolbar-item"></app-image-upload>
+  <app-distress *ngIf="!previewMode()" class="toolbar-item"></app-distress>
+  <app-names-and-numbers class="toolbar-item" *ngIf="designHasBack()"></app-names-and-numbers>
+  <app-layers *ngIf="!previewMode()" class="toolbar-item"></app-layers>
+  <app-designs *ngIf="!previewMode()" class="toolbar-item"></app-designs>
+</div>
+
+<div class="mobile-toolbar" *ngIf="currentDesign">
+  <div class="mobile-toolbar-icon" [ngClass]="toolbarName === 'design' ? 'mobile-toolbar-icon__active' : ''" (click)="showDetailToolbar($event, 'design')">
+    <i class="las la-pencil-ruler"></i>
+    <label class="mobile-toolbar-title">
+      Design
+    </label>
+  </div>
+
+  <div class="mobile-toolbar-icon" [ngClass]="toolbarName === 'product' ? 'mobile-toolbar-icon__active' : ''" (click)="showDetailToolbar($event, 'product')">
+    <i class="las la-tshirt"></i>
+    <label class="mobile-toolbar-title">
+      Product
+    </label>
+  </div>
+
+  <div class="mobile-toolbar-icon" [ngClass]="toolbarName === 'share' ? 'mobile-toolbar-icon__active' : ''" (click)="showDetailToolbar($event, 'share')">
+    <i class="las la-share-alt"></i>
+    <label class="mobile-toolbar-title">
+      Share
+    </label>
+  </div>
+
+  <div class="mobile-toolbar-icon" style="border-right: 1px solid #d6d6d6;" [ngClass]="toolbarName === 'save' ? 'mobile-toolbar-icon__active' : ''" (click)="showDetailToolbar($event, 'save')">
+    <i class="las la-save"></i>
+    <label class="mobile-toolbar-title">
+      Save
+    </label>
+  </div>
+
+  <div class="mobile-toolbar-icon" (click)="showQuickMobileBar($event)">
+    <i class="las la-shopping-cart"></i>
+    <label class="mobile-toolbar-title">
+      Get Price
+    </label>
+  </div>
+
+  <app-layers class="toolbar-item position-absolute" isMobile='true'></app-layers>
+</div>
+
+<div class="mobile-secondary-toolbar" [ngClass]="{'enable-toolbar': disableToolbar && toolbarName === 'design' }" *ngIf="currentDesign">
+  <app-text-element *ngIf="!previewMode()" class="toolbar-item" isMobile="true"></app-text-element>
+  <app-clipart *ngIf="!previewMode()" class="toolbar-item" isMobile="true"></app-clipart>
+  <app-shape-element *ngIf="!previewMode()" class="toolbar-item" isMobile="true"></app-shape-element>
+  <app-image-upload *ngIf="!previewMode()" class="toolbar-item" isMobile="true"></app-image-upload>
+  <app-distress *ngIf="!previewMode()" class="toolbar-item" isMobile="true"></app-distress>
+  <app-names-and-numbers class="toolbar-item" *ngIf="designHasBack()" isMobile="true"></app-names-and-numbers>
+</div>
+
+<div class="mobile-secondary-toolbar" [ngClass]="{'enable-toolbar': disableToolbar}" *ngIf="currentDesign && toolbarName === 'product'">
+  <div class="toolbar-item" (click)="openProducts($event)">
+    <div class="toolbar-item-icon">
+      <i class="las la-tshirt"></i>
+    </div>
+    <label class="toolbar-item-title">
+      Item
+    </label>
+  </div>
+  <div class="toolbar-item" (click)="openColorsEditor($event)">
+    <div class="toolbar-item-icon">
+      <i class="las la-tint"></i>
+    </div>
+    <label class="toolbar-item-title">
+      Color
+    </label>
+  </div>
+  <div class="toolbar-item" (click)="openQuantities($event)">
+    <div class="toolbar-item-icon">
+      <i class="las la-list-ol"></i>
+    </div>
+    <label class="toolbar-item-title">
+      Quantities
+    </label>
+  </div>
+</div>
+
+<div class="mobile-secondary-toolbar" [ngClass]="{'enable-toolbar': disableToolbar}" *ngIf="currentDesign && toolbarName === 'share'">
+  <div class="toolbar-item" (click)="onShareViaFacebook($event)">
+    <div class="toolbar-item-icon">
+      <i class="lab la-facebook-f"></i>
+    </div>
+    <label class="toolbar-item-title">
+      Facebook
+    </label>
+  </div>
+  <div class="toolbar-item" (click)="onShareViaTwitter($event)">
+    <div class="toolbar-item-icon">
+      <i class="lab la-twitter"></i>
+    </div>
+    <label class="toolbar-item-title">
+      Twitter
+    </label>
+  </div>
+  <div class="toolbar-item" (click)="onShareViaEmail($event)">
+    <div class="toolbar-item-icon">
+      <i class="las la-envelope"></i>
+    </div>
+    <label class="toolbar-item-title">
+      Email
+    </label>
+  </div>
+</div>
+
+<div class="mobile-secondary-toolbar" [ngClass]="{'enable-toolbar': disableToolbar}" *ngIf="currentDesign && toolbarName === 'save'">
+  <div class="toolbar-item" (click)="saveNew($event)">
+    <div class="toolbar-item-icon">
+      <i class="las la-plus"></i>
+    </div>
+    <label class="toolbar-item-title">
+      Save New
+    </label>
+  </div>
+  <app-designs *ngIf="!previewMode()" class="toolbar-item" isMobile="true"></app-designs>
+</div>
+
+<div class="mobile-switch-bar">
+  <div (click)="onSwitchSides($event)">
+    <div class="switchbar-item-icon">
+      <i class="las la-angle-left"></i>
+    </div>
+  </div>
+</div>
+<div class="mobile-switch-bar-right">
+  <div (click)="onSwitchSides($event)">
+    <div class="switchbar-item-icon">
+      <i class="las la-angle-right"></i>
+    </div>
+  </div>
+</div>

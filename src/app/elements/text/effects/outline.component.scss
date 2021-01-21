@@ -1,0 +1,28 @@
+:host {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .effect-controls {
+    margin-left: 0;
+    margin-right: 0;
+    margin: 0 15px;
+  }
+
+  .outline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+
+  .thickness-wrapper {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-template-columns: 1fr 115px;
+    margin: 10px 15px;
+    align-items: center;
+    app-color-picker {
+      padding-left: 5px;
+    }
+  }

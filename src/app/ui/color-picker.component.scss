@@ -1,0 +1,53 @@
+.selected-colors-text {
+  line-height: 30px;
+  vertical-align: middle;
+}
+
+.modal-body.color-swatch-background {
+  margin: 0 -15px;
+}
+
+.color-swatch-wrapper {
+  margin: 0 auto;
+}
+
+.swatch-wrapper {
+  margin-top: 8px;
+}
+
+.add-button-image {
+  border-radius: 50%;
+  border: 3px solid #e3e7eb;
+  cursor: pointer;
+  height: 25px;
+  overflow: hidden;
+  position: relative;
+  background-color: #1e3980;
+  width: 25px;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 900;
+  color: #ffffff;
+  :hover {
+    border: 3px solid #777;
+  }
+}
+
+.color-swatch-container.active {
+  border: blue;
+}
+
+.button-done-color {
+  display: flex;
+  justify-content: center;
+}
+
+.use-garment {
+  margin-top: 10px;
+  .checkbox-custom {
+    left: 15px;
+  }
+}

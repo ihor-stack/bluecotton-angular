@@ -1,0 +1,31 @@
+<div>
+  <div class="effect-toggle-wrapper col-sm-12">
+    <label class="label-effect sized">Text Shape</label>
+    <label class="checkbox-label">
+      <input type="checkbox" [checked]="enabled" (change)="onEnabledChange($event)" class="pull-right">
+      <span class="checkbox-custom"></span>
+    </label>
+  </div>
+    <ng-template [ngIf]="enabled">
+      <div class="effect-controls">
+        <div class="shape-wrapper grid-wrapper">
+          <label class="sized">Shape</label>
+          <div class="select-wrapper">
+            <select 
+              [ngModel]="element.shapeName" 
+              (ngModelChange)="onEffectChanges('shapeType', $event)" 
+              class="btn btn-secondary select btn-open-font-picker select-btn">
+              <option *ngFor="let shape of effect.shapes" [ngValue]="shape">{{shape}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-wrapper">
+          <label class="sized">Adjust:</label>
+          <input type="range" min="-50" max="150" step="5"
+            [ngModel]="element.shapeAdjust"
+            (ngModelChange)="onEffectChanges('shapeAdjust', $event)"
+            />
+        </div>
+      </div>
+    </ng-template>
+  </div>
